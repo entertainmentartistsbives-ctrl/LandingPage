@@ -12,6 +12,7 @@ import {
   BarChart3
 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import portrait from "../assets/Ahana.jpeg";
 
 export default function HomePage() {
   const fadeInUp = {
@@ -70,14 +71,14 @@ export default function HomePage() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative flex justify-center"
             >
-              <div className="relative rounded-2xl overflow-hidden">
+              <div className="relative rounded-2xl overflow-hidden max-w-lg w-full">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#C9A14A]/20 to-transparent z-10" />
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1610631066894-62452ccb927c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBmZW1hbGUlMjBDRU8lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc3NzUzMjQ2M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  src={portrait}
                   alt="Ahana Aura - CEO"
-                  className="w-full h-auto rounded-2xl shadow-2xl shadow-[#C9A14A]/20"
+                  className="w-full h-auto rounded-2xl shadow-2xl shadow-[#C9A14A]/20 object-cover aspect-[4/5]"
                 />
                 {/* Glow Effect */}
                 <div className="absolute -inset-4 bg-gradient-to-r from-[#C9A14A]/20 to-[#D4B872]/20 blur-3xl -z-10" />

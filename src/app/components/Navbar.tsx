@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
+import logo from "../assets/Ahana.jpeg";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,8 +37,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold">
+          <Link to="/" className="flex items-center space-x-3">
+            <img src={logo} alt="Ahana Aura Logo" className="w-10 h-10 rounded-full object-cover border-2 border-[#C9A14A]/30 shadow-lg" />
+            <div className="text-xl md:text-2xl font-bold">
               <span className="text-white">Ahana</span>
               <span className="text-[#C9A14A]"> Aura</span>
             </div>

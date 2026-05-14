@@ -1,6 +1,66 @@
 import { motion } from "motion/react";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
+import { Calendar, Clock, ArrowRight, Loader2 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+
+const staticInsights = [
+  {
+    id: "static-1",
+    title: "The Future of AI in Business: What CEOs Need to Know in 2026",
+    excerpt: "As AI continues to evolve at breakneck speed, business leaders must understand the strategic implications and opportunities that lie ahead.",
+    category: "AI Strategy",
+    read_time: "8 min read",
+    date: "Apr 15, 2026",
+    image: "https://images.unsplash.com/photo-1760629863094-5b1e8d1aae74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBSSUyMGZ1dHVyZSUyMHRlY2hub2xvZ3klMjBpbm5vdmF0aW9ufGVufDF8fHx8MTc3NzUzMjc1MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+  },
+  {
+    id: "static-2",
+    title: "From Manual to Automated: A Blueprint for Business Transformation",
+    excerpt: "Learn the proven framework for identifying automation opportunities and implementing systems that deliver real ROI.",
+    category: "Automation",
+    read_time: "6 min read",
+    date: "Apr 8, 2026",
+    image: "https://images.unsplash.com/photo-1759752393975-7ca7b302fcc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyGF1dG9tYXRpb24lMjB3b3JrZmxvd3xlbnwxfHx8fDE3Nzc1MzI3NTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+  },
+  {
+    id: "static-3",
+    title: "Data-Driven Decision Making: Building Your Analytics Foundation",
+    excerpt: "Why most companies fail at data analytics and how to build a foundation that actually drives business value.",
+    category: "Data Analytics",
+    read_time: "7 min read",
+    date: "Mar 28, 2026",
+    image: "https://images.unsplash.com/photo-1529078155058-5d716f45d604?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWNoaW5lJTIwbGVhcm5pbmclMjBkYXRhJTIwYW5hbHl0aWNzfGVufDF8fHx8MTc3NzUzMjc0OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+  },
+  {
+    id: "static-4",
+    title: "The ROI of AI: Measuring What Matters in Transformation Projects",
+    excerpt: "A comprehensive guide to setting KPIs, tracking progress, and demonstrating the business impact of AI initiatives.",
+    category: "Business Impact",
+    read_time: "9 min read",
+    date: "Mar 18, 2026",
+    image: "https://images.unsplash.com/photo-1769798643630-194a0fcfa367?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwdHJhbnNmb3JtYXRpb24lMjBidXNpbmVzcyUyMHN0cmF0ZWd5fGVufDF8fHx8MTc3NzUzMjc0OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+  },
+  {
+    id: "static-5",
+    title: "Leadership in the AI Era: Skills CEOs Must Develop",
+    excerpt: "The changing role of business leaders and the critical capabilities needed to thrive in an AI-powered world.",
+    category: "Leadership",
+    read_time: "5 min read",
+    date: "Mar 5, 2026",
+    image: "https://images.unsplash.com/photo-1758518727888-ffa196002e59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwJTIwYnVzaW5lc3MlMjBleGVjdXRpdmV8ZW58MXx8fHwxNzc3NTMyNzUwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+  },
+  {
+    id: "static-6",
+    title: "Building SaaS Products That Scale: Technical and Strategic Insights",
+    excerpt: "Essential architecture decisions, growth strategies, and product development principles for sustainable SaaS success.",
+    category: "SaaS Development",
+    read_time: "10 min read",
+    date: "Feb 22, 2026",
+    image: "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGRldmVsb3BtZW50JTIwY29kaW5nfGVufDF8fHx8MTc3NzQ5NzkzOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+  },
+];
 
 export default function InsightsPage() {
   const fadeInUp = {
@@ -10,56 +70,34 @@ export default function InsightsPage() {
     transition: { duration: 0.6 }
   };
 
-  const insights = [
-    {
-      title: "The Future of AI in Business: What CEOs Need to Know in 2026",
-      excerpt: "As AI continues to evolve at breakneck speed, business leaders must understand the strategic implications and opportunities that lie ahead.",
-      category: "AI Strategy",
-      readTime: "8 min read",
-      date: "Apr 15, 2026",
-      image: "https://images.unsplash.com/photo-1760629863094-5b1e8d1aae74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBSSUyMGZ1dHVyZSUyMHRlY2hub2xvZ3klMjBpbm5vdmF0aW9ufGVufDF8fHx8MTc3NzUzMjc1MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-    {
-      title: "From Manual to Automated: A Blueprint for Business Transformation",
-      excerpt: "Learn the proven framework for identifying automation opportunities and implementing systems that deliver real ROI.",
-      category: "Automation",
-      readTime: "6 min read",
-      date: "Apr 8, 2026",
-      image: "https://images.unsplash.com/photo-1759752393975-7ca7b302fcc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGF1dG9tYXRpb24lMjB3b3JrZmxvd3xlbnwxfHx8fDE3Nzc1MzI3NTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-    {
-      title: "Data-Driven Decision Making: Building Your Analytics Foundation",
-      excerpt: "Why most companies fail at data analytics and how to build a foundation that actually drives business value.",
-      category: "Data Analytics",
-      readTime: "7 min read",
-      date: "Mar 28, 2026",
-      image: "https://images.unsplash.com/photo-1529078155058-5d716f45d604?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWNoaW5lJTIwbGVhcm5pbmclMjBkYXRhJTIwYW5hbHl0aWNzfGVufDF8fHx8MTc3NzUzMjc0OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-    {
-      title: "The ROI of AI: Measuring What Matters in Transformation Projects",
-      excerpt: "A comprehensive guide to setting KPIs, tracking progress, and demonstrating the business impact of AI initiatives.",
-      category: "Business Impact",
-      readTime: "9 min read",
-      date: "Mar 18, 2026",
-      image: "https://images.unsplash.com/photo-1769798643630-194a0fcfa367?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwdHJhbnNmb3JtYXRpb24lMjBidXNpbmVzcyUyMHN0cmF0ZWd5fGVufDF8fHx8MTc3NzUzMjc0OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-    {
-      title: "Leadership in the AI Era: Skills CEOs Must Develop",
-      excerpt: "The changing role of business leaders and the critical capabilities needed to thrive in an AI-powered world.",
-      category: "Leadership",
-      readTime: "5 min read",
-      date: "Mar 5, 2026",
-      image: "https://images.unsplash.com/photo-1758518727888-ffa196002e59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwJTIwYnVzaW5lc3MlMjBleGVjdXRpdmV8ZW58MXx8fHwxNzc3NTMyNzUwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-    {
-      title: "Building SaaS Products That Scale: Technical and Strategic Insights",
-      excerpt: "Essential architecture decisions, growth strategies, and product development principles for sustainable SaaS success.",
-      category: "SaaS Development",
-      readTime: "10 min read",
-      date: "Feb 22, 2026",
-      image: "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGRldmVsb3BtZW50JTIwY29kaW5nfGVufDF8fHx8MTc3NzQ5NzkzOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-  ];
+  const [insights, setInsights] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchInsights() {
+      try {
+        const { data, error } = await supabase
+          .from('insights')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          setInsights(data);
+        } else {
+          setInsights(staticInsights);
+        }
+      } catch (err) {
+        console.error("Error fetching insights:", err);
+        setInsights(staticInsights);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchInsights();
+  }, []);
 
   return (
     <div className="pt-20">
@@ -90,52 +128,57 @@ export default function InsightsPage() {
       </section>
 
       {/* Featured Article */}
-      <section className="py-16 bg-black/20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeInUp}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-gray-800/50 rounded-3xl overflow-hidden hover:border-[#C9A14A]/50 transition-all duration-300 group">
-              <div className="relative h-[400px] lg:h-full overflow-hidden">
-                <ImageWithFallback
-                  src={insights[0].image}
-                  alt={insights[0].title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              </div>
-
-              <div className="p-8 lg:p-12">
-                <div className="inline-block px-3 py-1 bg-[#C9A14A]/10 border border-[#C9A14A]/30 rounded-full text-[#C9A14A] text-sm mb-4">
-                  Featured • {insights[0].category}
+      {!isLoading && insights.length > 0 && (
+        <section className="py-16 bg-black/20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <motion.div {...fadeInUp}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-gray-800/50 rounded-3xl overflow-hidden hover:border-[#C9A14A]/50 transition-all duration-300 group">
+                <div className="relative h-[400px] lg:h-full overflow-hidden">
+                  <ImageWithFallback
+                    src={insights[0].image}
+                    alt={insights[0].title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-[#C9A14A] transition-colors">
-                  {insights[0].title}
-                </h2>
-
-                <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-                  {insights[0].excerpt}
-                </p>
-
-                <div className="flex items-center gap-6 text-sm text-gray-500 mb-6">
-                  <div className="flex items-center">
-                    <Calendar size={16} className="mr-2 text-[#C9A14A]" />
-                    {insights[0].date}
+                <div className="p-8 lg:p-12">
+                  <div className="inline-block px-3 py-1 bg-[#C9A14A]/10 border border-[#C9A14A]/30 rounded-full text-[#C9A14A] text-sm mb-4">
+                    Featured • {insights[0].category}
                   </div>
-                  <div className="flex items-center">
-                    <Clock size={16} className="mr-2 text-[#C9A14A]" />
-                    {insights[0].readTime}
+
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-[#C9A14A] transition-colors">
+                    {insights[0].title}
+                  </h2>
+
+                  <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                    {insights[0].excerpt}
+                  </p>
+
+                  <div className="flex items-center gap-6 text-sm text-gray-500 mb-6">
+                    <div className="flex items-center">
+                      <Calendar size={16} className="mr-2 text-[#C9A14A]" />
+                      {insights[0].date}
+                    </div>
+                    <div className="flex items-center">
+                      <Clock size={16} className="mr-2 text-[#C9A14A]" />
+                      {insights[0].read_time}
+                    </div>
                   </div>
+
+                  <Link 
+                    to={`/insights/${insights[0].id}`}
+                    className="flex items-center text-[#C9A14A] font-semibold group-hover:translate-x-2 transition-transform"
+                  >
+                    Read Article
+                    <ArrowRight size={18} className="ml-2" />
+                  </Link>
                 </div>
-
-                <button className="flex items-center text-[#C9A14A] font-semibold group-hover:translate-x-2 transition-transform">
-                  Read Article
-                  <ArrowRight size={18} className="ml-2" />
-                </button>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* All Insights Grid */}
       <section className="py-24">
@@ -147,14 +190,19 @@ export default function InsightsPage() {
             <p className="text-gray-400">Explore more insights and perspectives</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {insights.slice(1).map((article, index) => (
-              <motion.div
-                key={index}
-                {...fadeInUp}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-gray-800/50 rounded-3xl overflow-hidden hover:border-[#C9A14A]/50 transition-all duration-300 cursor-pointer"
-              >
+          {isLoading ? (
+            <div className="flex justify-center py-20">
+              <Loader2 className="w-10 h-10 text-[#C9A14A] animate-spin" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {insights.slice(1).map((article, index) => (
+                <motion.div
+                  key={index}
+                  {...fadeInUp}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-gray-800/50 rounded-3xl overflow-hidden hover:border-[#C9A14A]/50 transition-all duration-300 cursor-pointer"
+                >
                 {/* Image */}
                 <div className="relative h-56 overflow-hidden">
                   <ImageWithFallback
@@ -189,12 +237,12 @@ export default function InsightsPage() {
                     </div>
                     <div className="flex items-center">
                       <Clock size={14} className="mr-1.5 text-[#C9A14A]" />
-                      {article.readTime}
+                      {article.read_time}
                     </div>
                   </div>
 
                   <div className="flex items-center text-[#C9A14A] text-sm font-semibold group-hover:translate-x-2 transition-transform">
-                    Read More
+                    <Link to={`/insights/${article.id}`}>Read More</Link>
                     <ArrowRight size={16} className="ml-2" />
                   </div>
                 </div>
@@ -204,6 +252,7 @@ export default function InsightsPage() {
               </motion.div>
             ))}
           </div>
+          )}
         </div>
       </section>
 

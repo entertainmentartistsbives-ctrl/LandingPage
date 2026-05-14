@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { Mail, MapPin, Phone, Send, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -11,6 +11,8 @@ export default function ContactPage() {
     problem: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -19,23 +21,37 @@ export default function ContactPage() {
     transition: { duration: 0.6 }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        revenue: "",
-        problem: ""
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-    }, 3000);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send email");
+      }
+
+      setIsSubmitted(true);
+
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: "", email: "", company: "", revenue: "", problem: "" });
+      }, 5000);
+    } catch (err: any) {
+      console.error("Email send error:", err);
+      setError("Something went wrong. Please try again or email us directly at advisor@ahanaaura.com");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -95,8 +111,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="text-white font-semibold mb-1">Email</div>
-                    <a href="mailto:hello@ahanaaura.com" className="text-gray-400 hover:text-[#C9A14A] transition-colors">
-                      hello@ahanaaura.com
+                    <a href="mailto:advisor@ahanaaura.com" className="text-gray-400 hover:text-[#C9A14A] transition-colors">
+                      advisor@ahanaaura.com
                     </a>
                   </div>
                 </div>
@@ -107,8 +123,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="text-white font-semibold mb-1">Phone</div>
-                    <a href="tel:+919876543210" className="text-gray-400 hover:text-[#C9A14A] transition-colors">
-                      +91 98765 43210
+                    <a href="tel:+917204468429" className="text-gray-400 hover:text-[#C9A14A] transition-colors">
+                      +91 72044 68429
                     </a>
                   </div>
                 </div>
@@ -120,7 +136,7 @@ export default function ContactPage() {
                   <div>
                     <div className="text-white font-semibold mb-1">Location</div>
                     <p className="text-gray-400">
-                      Mumbai, India
+                      Bengaluru, India
                     </p>
                   </div>
                 </div>
@@ -232,13 +248,31 @@ export default function ContactPage() {
                       />
                     </div>
 
+                    {/* Error Message */}
+                    {error && (
+                      <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl">
+                        <AlertCircle className="text-red-400 flex-shrink-0" size={20} />
+                        <p className="text-red-400 text-sm">{error}</p>
+                      </div>
+                    )}
+
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full px-8 py-5 bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black font-bold text-lg rounded-full hover:shadow-2xl hover:shadow-[#C9A14A]/50 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center group"
+                      disabled={isLoading}
+                      className="w-full px-8 py-5 bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black font-bold text-lg rounded-full hover:shadow-2xl hover:shadow-[#C9A14A]/50 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center group disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                     >
-                      <span>Book Strategy Call</span>
-                      <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 animate-spin" size={20} />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Book Strategy Call</span>
+                          <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                        </>
+                      )}
                     </button>
 
                     <p className="text-sm text-gray-500 text-center">

@@ -39,6 +39,19 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Chatbot Variables (Premium Gold & Black) — namespaced to avoid Shadcn conflicts */
+  --chat-bg: #0A0A0A;
+  --chat-bg2: #121212;
+  --chat-bg3: #1C1C1C;
+  --chat-bg4: #2A2A2A;
+  --chat-border: #333333;
+  --chat-border2: #444444;
+  --chat-accent: #D4AF37;
+  --chat-accent2: #F3E5AB;
+  --chat-text: #FFFFFF;
+  --chat-text2: #111111;
+  --chat-text3: #A0A0A0;
 }
 
 .dark {
@@ -76,6 +89,19 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* Chatbot Variables (Dark) Premium Gold & Black — namespaced */
+  --chat-bg: #0A0A0A;
+  --chat-bg2: #121212;
+  --chat-bg3: #1C1C1C;
+  --chat-bg4: #2A2A2A;
+  --chat-border: #333333;
+  --chat-border2: #444444;
+  --chat-accent: #D4AF37;
+  --chat-accent2: #F3E5AB;
+  --chat-text: #FFFFFF;
+  --chat-text2: #111111;
+  --chat-text3: #A0A0A0;
 }
 
 @theme inline {

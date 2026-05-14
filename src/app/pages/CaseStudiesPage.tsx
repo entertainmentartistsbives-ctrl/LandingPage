@@ -1,7 +1,54 @@
 import { motion } from "motion/react";
-import { ArrowRight, TrendingUp, Users, DollarSign, Clock } from "lucide-react";
+import { ArrowRight, TrendingUp, Users, DollarSign, Clock, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+
+const staticCaseStudies = [
+  {
+    company: "FinTech Startup",
+    industry: "Financial Services",
+    challenge: "Low customer acquisition and high CAC",
+    solution: "Implemented AI-powered lead scoring and personalized onboarding flows to identify and convert high-value customers",
+    results: [
+      { metric: "250%", label: "Revenue Growth" },
+      { metric: "65%", label: "Lower CAC" },
+      { metric: "8K+", label: "New Customers" },
+    ],
+    impact: "Transformed from struggling startup to market leader with predictable, scalable growth.",
+    timeline: "4 months"
+  },
+  {
+    company: "E-commerce Platform",
+    industry: "Retail & Commerce",
+    challenge: "Inefficient inventory management and high operational costs",
+    solution: "Deployed AI-driven demand forecasting and automated fulfillment workflows to optimize stock levels and reduce waste",
+    results: [
+      { metric: "60%", label: "Cost Reduction" },
+      { metric: "45%", label: "Faster Fulfillment" },
+      { metric: "₹2Cr", label: "Annual Savings" },
+    ],
+    impact: "Achieved operational excellence with leaner inventory and happier customers.",
+    timeline: "5 months"
+  },
+  {
+    company: "Healthcare SaaS",
+    industry: "Healthcare Technology",
+    challenge: "Product-market fit issues and stagnant user growth",
+    solution: "Redesigned product strategy with AI-enhanced features and streamlined UX based on user behavior analytics",
+    results: [
+      { metric: "10K+", label: "New Users" },
+      { metric: "3.5x", label: "User Engagement" },
+      { metric: "85%", label: "Retention Rate" },
+    ],
+    impact: "Pivoted to product-led growth with strong retention and expansion metrics.",
+    timeline: "6 months"
+  }
+];
 
 export default function CaseStudiesPage() {
+  const [caseStudies, setCaseStudies] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -9,86 +56,44 @@ export default function CaseStudiesPage() {
     transition: { duration: 0.6 }
   };
 
-  const caseStudies = [
-    {
-      company: "FinTech Startup",
-      industry: "Financial Services",
-      challenge: "Low customer acquisition and high CAC",
-      solution: "Implemented AI-powered lead scoring and personalized onboarding flows to identify and convert high-value customers",
-      results: [
-        { metric: "250%", label: "Revenue Growth" },
-        { metric: "65%", label: "Lower CAC" },
-        { metric: "8K+", label: "New Customers" },
-      ],
-      impact: "Transformed from struggling startup to market leader with predictable, scalable growth.",
-      timeline: "4 months"
-    },
-    {
-      company: "E-commerce Platform",
-      industry: "Retail & Commerce",
-      challenge: "Inefficient inventory management and high operational costs",
-      solution: "Deployed AI-driven demand forecasting and automated fulfillment workflows to optimize stock levels and reduce waste",
-      results: [
-        { metric: "60%", label: "Cost Reduction" },
-        { metric: "45%", label: "Faster Fulfillment" },
-        { metric: "₹2Cr", label: "Annual Savings" },
-      ],
-      impact: "Achieved operational excellence with leaner inventory and happier customers.",
-      timeline: "5 months"
-    },
-    {
-      company: "Healthcare SaaS",
-      industry: "Healthcare Technology",
-      challenge: "Product-market fit issues and stagnant user growth",
-      solution: "Redesigned product strategy with AI-enhanced features and streamlined UX based on user behavior analytics",
-      results: [
-        { metric: "10K+", label: "New Users" },
-        { metric: "3.5x", label: "User Engagement" },
-        { metric: "85%", label: "Retention Rate" },
-      ],
-      impact: "Pivoted to product-led growth with strong retention and expansion metrics.",
-      timeline: "6 months"
-    },
-    {
-      company: "Manufacturing Enterprise",
-      industry: "Industrial Manufacturing",
-      challenge: "Quality control issues causing production delays",
-      solution: "Implemented computer vision-based quality inspection and predictive maintenance systems",
-      results: [
-        { metric: "40%", label: "Defect Reduction" },
-        { metric: "30%", label: "Less Downtime" },
-        { metric: "₹1.5Cr", label: "Cost Savings" },
-      ],
-      impact: "Achieved consistent quality standards and maximized production uptime.",
-      timeline: "3 months"
-    },
-    {
-      company: "Professional Services Firm",
-      industry: "Consulting & Advisory",
-      challenge: "Manual processes limiting scalability and profitability",
-      solution: "Automated client onboarding, reporting, and billing with AI-powered document processing",
-      results: [
-        { metric: "70%", label: "Time Saved" },
-        { metric: "2.5x", label: "Client Capacity" },
-        { metric: "50%", label: "Revenue Increase" },
-      ],
-      impact: "Scaled operations without proportional headcount growth.",
-      timeline: "4 months"
-    },
-    {
-      company: "EdTech Platform",
-      industry: "Education Technology",
-      challenge: "Low engagement and high churn rates",
-      solution: "Built personalized learning paths using AI and gamification to boost engagement and completion rates",
-      results: [
-        { metric: "80%", label: "Higher Engagement" },
-        { metric: "55%", label: "Better Completion" },
-        { metric: "12K+", label: "Active Learners" },
-      ],
-      impact: "Created a sticky product with strong word-of-mouth growth.",
-      timeline: "5 months"
-    },
-  ];
+  useEffect(() => {
+    async function fetchCaseStudies() {
+      try {
+        const { data, error } = await supabase
+          .from('case_studies')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const formattedData = data.map(study => ({
+            company: study.title,
+            industry: study.category,
+            challenge: study.challenge,
+            solution: study.solution,
+            impact: study.impact,
+            timeline: study.duration,
+            results: [
+              { metric: study.result1_value, label: study.result1_label },
+              { metric: study.result2_value, label: study.result2_label },
+              { metric: study.result3_value, label: study.result3_label }
+            ].filter(r => r.metric)
+          }));
+          setCaseStudies(formattedData);
+        } else {
+          setCaseStudies(staticCaseStudies);
+        }
+      } catch (err) {
+        console.error("Error fetching case studies:", err);
+        setCaseStudies(staticCaseStudies);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchCaseStudies();
+  }, []);
 
   return (
     <div className="pt-20">

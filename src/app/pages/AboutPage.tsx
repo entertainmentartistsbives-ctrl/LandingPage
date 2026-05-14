@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Award, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import portrait from "../assets/Ahana.jpeg";
 
 export default function AboutPage() {
   const fadeInUp = {
@@ -42,13 +43,13 @@ export default function AboutPage() {
 
       {/* Professional Image Section */}
       <section className="py-16 bg-black/20">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#C9A14A]/20 to-transparent z-10" />
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 flex justify-center">
+          <motion.div {...fadeInUp} className="relative rounded-3xl overflow-hidden max-w-md w-full ring-1 ring-white/10">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#C9A14A]/20 to-transparent z-10 pointer-events-none" />
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1610631066894-62452ccb927c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBmZW1hbGUlMjBDRU8lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc3NzUzMjQ2M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+              src={portrait}
               alt="Ahana Aura - Professional Portrait"
-              className="w-full h-auto rounded-3xl shadow-2xl shadow-[#C9A14A]/30"
+              className="w-full h-auto aspect-[4/5] object-cover rounded-3xl shadow-2xl shadow-[#C9A14A]/30"
             />
             <div className="absolute -inset-8 bg-gradient-to-r from-[#C9A14A]/20 to-[#D4B872]/20 blur-3xl -z-10" />
           </motion.div>
