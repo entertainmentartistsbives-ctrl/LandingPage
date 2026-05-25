@@ -1,3 +1,5 @@
+import nodemailer from 'nodemailer';
+
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -72,27 +74,24 @@ export default async function handler(req, res) {
       </div>
     `;
 
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
+    // Configure NodeMailer with Gmail
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
-      body: JSON.stringify({
-        from: 'Ahana Aura <advisor@ahanaaura.com>',
-        to: ['advisor@ahanaaura.com', 'mdahanaaura@gmail.com'],
-        subject: `Strategy Call Request — ${safe.name} (${safe.company})`,
-        html: emailHtml,
-        reply_to: email,
-      }),
     });
 
-    const data = await response.json();
+    const mailOptions = {
+      from: \`"Ahana Aura Website" <\${process.env.EMAIL_USER}>\`,
+      to: process.env.EMAIL_USER, 
+      replyTo: safe.email,
+      subject: \`Strategy Call Request — \${safe.name} (\${safe.company})\`,
+      html: emailHtml,
+    };
 
-    if (!response.ok) {
-      console.error('Resend API error:', data);
-      return res.status(500).json({ error: 'Failed to send email', details: data });
-    }
+    await transporter.sendMail(mailOptions);
 
     return res.status(200).json({ success: true, message: 'Email sent successfully' });
   } catch (error) {

@@ -1,364 +1,344 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
-import { 
-  Search, 
-  Compass, 
-  Code, 
-  TrendingUp, 
-  Check,
-  ArrowRight,
-  Sparkles
-} from "lucide-react";
+
+const intersections = [
+  { label: "Product Vision",       sub: "Defining what to build and why it matters" },
+  { label: "Business Architecture", sub: "Structuring how the business operates and scales" },
+  { label: "Market-Fit Strategy",  sub: "Aligning solutions with validated demand" },
+  { label: "Operational Systems",  sub: "Building processes that run without friction" },
+  { label: "Growth Execution",     sub: "Turning strategy into measurable outcomes" },
+];
+
+const expertise = [
+  {
+    index: "01",
+    title: "Product & Service Architecture",
+    body: "Designing scalable products and service ecosystems aligned with market demand and operational viability.",
+  },
+  {
+    index: "02",
+    title: "Startup Validation & Growth Advisory",
+    body: "Helping founders validate ideas, identify opportunities, refine positioning, and establish scalable business models.",
+  },
+  {
+    index: "03",
+    title: "Business Systems & Workflow Design",
+    body: "Creating operational workflows, marketing systems, sales structures, and functional business processes.",
+  },
+  {
+    index: "04",
+    title: "Market-Fit & Solution Optimization",
+    body: "Transforming concepts into market-ready solutions through strategic refinement and ecosystem thinking.",
+  },
+  {
+    index: "05",
+    title: "Strategic Decision Partnership",
+    body: "Supporting leadership teams in making scalable, data-driven, and business-focused growth decisions.",
+  },
+];
 
 export default function ServicesPage() {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.6 }
-  };
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
-    <div className="pt-20">
-      {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#C9A14A]/5 via-transparent to-transparent" />
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <div className="inline-block px-4 py-2 bg-[#C9A14A]/10 border border-[#C9A14A]/30 rounded-full mb-6">
-              <span className="text-[#C9A14A] text-sm font-medium">Premium Advisory Services</span>
+    <div className="bg-transparent text-white w-full">
+
+      {/* ══════════════════════════════════════
+          HERO — Split canvas
+      ══════════════════════════════════════ */}
+      <section className="min-h-screen grid grid-cols-1 lg:grid-cols-[58%_42%] pt-20">
+
+        {/* LEFT — Content */}
+        <div className="relative flex flex-col justify-center px-8 md:px-16 pt-12 pb-24 overflow-hidden">
+          {/* grid lines */}
+          <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.05, backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,161,74,1) 59px,rgba(201,161,74,1) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(201,161,74,1) 59px,rgba(201,161,74,1) 60px)" }} />
+
+          <div className="relative z-10 max-w-2xl">
+            <div className="flex items-center gap-3 mb-11">
+              <div className="w-8 h-px bg-[#C9A14A]" />
+              <span className="text-[10px] tracking-[0.45em] uppercase text-[#C9A14A] font-medium">
+                CEO-Level Strategic Advisory
+              </span>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              AI Transformation <span className="text-[#C9A14A]">Program</span>
-            </h1>
-            
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-              A comprehensive approach to scaling your business with intelligent automation and strategic innovation
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* 4-Step Process */}
-      <section className="py-24 bg-black/20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              The <span className="text-[#C9A14A]">Transformation</span> Process
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              A proven 4-step methodology to deliver measurable results
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-            {/* Connection Lines (desktop only) */}
-            <div className="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C9A14A]/30 to-transparent" />
-
-            {[
-              {
-                icon: Search,
-                step: "01",
-                title: "Analyze",
-                description: "Deep dive into your business processes, identify bottlenecks, and uncover opportunities for AI integration.",
-                deliverables: ["Business audit", "Opportunity mapping", "ROI projections"]
-              },
-              {
-                icon: Compass,
-                step: "02",
-                title: "Design",
-                description: "Create a customized transformation roadmap aligned with your business goals and technical capabilities.",
-                deliverables: ["Strategic roadmap", "System architecture", "Implementation plan"]
-              },
-              {
-                icon: Code,
-                step: "03",
-                title: "Build",
-                description: "Develop and deploy AI-powered solutions with rapid prototyping and iterative refinement.",
-                deliverables: ["AI systems", "Automation workflows", "Integration testing"]
-              },
-              {
-                icon: TrendingUp,
-                step: "04",
-                title: "Scale",
-                description: "Optimize performance, train your team, and establish processes for continuous improvement.",
-                deliverables: ["Team training", "Performance optimization", "Growth metrics"]
-              },
-            ].map((step, index) => (
-              <motion.div
-                key={index}
-                {...fadeInUp}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-                className="relative group"
-              >
-                <div className="relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-gray-800/50 rounded-3xl p-8 hover:border-[#C9A14A]/50 transition-all duration-300 h-full">
-                  {/* Step Number */}
-                  <div className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A14A] to-[#D4B872] flex items-center justify-center text-black font-bold shadow-lg shadow-[#C9A14A]/30">
-                    {step.step}
-                  </div>
-
-                  {/* Icon */}
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#C9A14A]/20 to-[#C9A14A]/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <step.icon className="text-[#C9A14A]" size={32} />
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
-                  <p className="text-gray-400 mb-6 leading-relaxed">{step.description}</p>
-
-                  <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[#C9A14A] mb-2">Deliverables:</div>
-                    {step.deliverables.map((item, i) => (
-                      <div key={i} className="flex items-center text-sm text-gray-500">
-                        <Check size={16} className="text-[#C9A14A] mr-2 flex-shrink-0" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Glow */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-[#C9A14A]/0 via-[#C9A14A]/10 to-[#C9A14A]/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity -z-10" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Service Offerings */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              What I <span className="text-[#C9A14A]">Offer</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "AI Automation Systems",
-                tagline: "Intelligent efficiency at scale",
-                features: [
-                  "Custom AI model development",
-                  "Process automation workflows",
-                  "Predictive analytics implementation",
-                  "Natural language processing",
-                  "Computer vision solutions",
-                  "Decision support systems"
-                ]
-              },
-              {
-                title: "Business Transformation",
-                tagline: "Strategic evolution for growth",
-                features: [
-                  "Digital strategy consulting",
-                  "Operations optimization",
-                  "Change management",
-                  "Technology stack modernization",
-                  "Data infrastructure setup",
-                  "Performance measurement frameworks"
-                ]
-              },
-              {
-                title: "SaaS Platform Development",
-                tagline: "Build products people love",
-                features: [
-                  "Product strategy & roadmap",
-                  "Full-stack development",
-                  "Cloud architecture design",
-                  "API & integration development",
-                  "User experience optimization",
-                  "Scalability & security"
-                ]
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                {...fadeInUp}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-                className="relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-gray-800/50 rounded-3xl p-8 hover:border-[#C9A14A]/50 transition-all duration-300 group"
-              >
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{service.title}</h3>
-                  <p className="text-[#C9A14A] font-medium">{service.tagline}</p>
-                </div>
-
-                <div className="space-y-3">
-                  {service.features.map((feature, i) => (
-                    <div key={i} className="flex items-start">
-                      <Check size={20} className="text-[#C9A14A] mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-400">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-gray-800/50">
-                  <Link
-                    to="/contact"
-                    className="flex items-center text-[#C9A14A] font-semibold group-hover:translate-x-2 transition-transform"
-                  >
-                    Learn More
-                    <ArrowRight size={18} className="ml-2" />
-                  </Link>
-                </div>
-
-                {/* Glow */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-[#C9A14A]/0 via-[#C9A14A]/10 to-[#C9A14A]/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity -z-10" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-24 bg-black/20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Investment <span className="text-[#C9A14A]">Options</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Flexible engagement models designed for your business needs
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Strategy Session",
-                price: "₹50K",
-                period: "one-time",
-                description: "Perfect for businesses exploring AI opportunities",
-                features: [
-                  "2-hour consultation",
-                  "Business audit & analysis",
-                  "Opportunity identification",
-                  "Custom roadmap",
-                  "Priority recommendations",
-                  "30-day email support"
-                ],
-                cta: "Book Session"
-              },
-              {
-                name: "Transformation Program",
-                price: "₹5L+",
-                period: "per project",
-                description: "Comprehensive AI implementation and business transformation",
-                features: [
-                  "Full 4-step process",
-                  "Custom AI solutions",
-                  "Team training",
-                  "3-6 month timeline",
-                  "Ongoing optimization",
-                  "Dedicated support",
-                  "ROI guarantee"
-                ],
-                cta: "Get Started",
-                featured: true
-              },
-              {
-                name: "Retained Advisory",
-                price: "Custom",
-                period: "monthly",
-                description: "Ongoing strategic guidance for sustained growth",
-                features: [
-                  "Monthly strategy sessions",
-                  "Priority access",
-                  "Continuous optimization",
-                  "Performance monitoring",
-                  "Team training sessions",
-                  "Technology assessment",
-                  "Executive reporting"
-                ],
-                cta: "Discuss Options"
-              },
-            ].map((plan, index) => (
-              <motion.div
-                key={index}
-                {...fadeInUp}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-                className={`relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border rounded-3xl p-8 transition-all duration-300 ${
-                  plan.featured
-                    ? "border-[#C9A14A] shadow-xl shadow-[#C9A14A]/20 scale-105"
-                    : "border-gray-800/50 hover:border-[#C9A14A]/50"
-                }`}
-              >
-                {plan.featured && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="px-4 py-1 bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black text-sm font-bold rounded-full flex items-center">
-                      <Sparkles size={14} className="mr-1" />
-                      Most Popular
-                    </div>
-                  </div>
-                )}
-
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                  <p className="text-gray-400 text-sm mb-4">{plan.description}</p>
-                  <div className="flex items-baseline">
-                    <span className="text-4xl font-bold text-[#C9A14A]">{plan.price}</span>
-                    <span className="text-gray-500 ml-2">/ {plan.period}</span>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  {plan.features.map((feature, i) => (
-                    <div key={i} className="flex items-start">
-                      <Check size={20} className="text-[#C9A14A] mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-400">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  to="/contact"
-                  className={`block w-full py-4 rounded-full font-semibold text-center transition-all duration-300 ${
-                    plan.featured
-                      ? "bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black hover:shadow-lg hover:shadow-[#C9A14A]/50 hover:-translate-y-1"
-                      : "bg-white/5 text-white border border-gray-700 hover:bg-white/10 hover:border-[#C9A14A]/50"
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div {...fadeInUp} className="mt-12 text-center">
-            <p className="text-gray-500">
-              All engagements are customized to your specific needs. Pricing varies based on scope and complexity.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <motion.div {...fadeInUp}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to <span className="text-[#C9A14A]">Get Started</span>?
-            </h2>
-            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Let's discuss your business goals and create a transformation plan tailored to your needs.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center px-10 py-5 bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black font-bold text-lg rounded-full hover:shadow-2xl hover:shadow-[#C9A14A]/50 transition-all duration-300 hover:-translate-y-1"
+            <h1
+              className="font-bold leading-[1.03] mb-9 text-white"
+              style={{ fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)" }}
             >
-              Book Strategy Call
-              <ArrowRight className="ml-2" size={24} />
-            </Link>
-          </motion.div>
+              Building
+              <br />
+              Market-Ready
+              <br />
+              Business Systems,
+              <br />
+              <em className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A14A] to-[#D4B872] not-italic">Products &amp; Growth</em>
+              <br />
+              Architectures
+            </h1>
+
+            <p className="text-gray-400 leading-[1.85] font-light mb-11" style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)", maxWidth: "38rem" }}>
+              I help founders, startups, and organizations transform ideas, operations, and
+              business models into scalable products, services, and high-performance growth
+              systems aligned with real market demand.
+            </p>
+
+            {/* CTA block */}
+            <div className="flex flex-col gap-4">
+              <Link to="/contact" className="group self-start flex items-center gap-3 bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black font-semibold px-10 py-[18px] text-[11px] tracking-[0.18em] uppercase transition-all duration-300 hover:shadow-[0_0_20px_rgba(201,161,74,0.4)] rounded-full hover:-translate-y-1">
+                Book Strategic Advisory Session
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <div className="flex items-center gap-2 pl-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C9A14A] animate-pulse" />
+                <span className="text-[10px] text-gray-500 tracking-[0.12em] uppercase font-medium">
+                  Accepting limited strategic engagements
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT — Geometric system visual */}
+        <div className="hidden lg:flex relative flex-col justify-center items-center border-l border-gray-800/50 bg-white/[0.02] backdrop-blur-sm overflow-hidden px-10 py-32">
+          {/* Amber radial */}
+          <div className="absolute top-0 right-0 w-full h-full pointer-events-none" style={{ background: "radial-gradient(ellipse at 70% 30%, rgba(201,161,74,0.15) 0%, transparent 65%)" }} />
+
+          {/* The 5-node system diagram */}
+          <div className="relative w-full max-w-md flex flex-col gap-0 ml-8">
+            {intersections.map((item, i) => (
+              <div key={item.label} className="relative flex items-start gap-8 group py-8">
+                {/* Vertical connector line */}
+                {i < intersections.length - 1 && (
+                  <div className="absolute left-[15px] top-[40px] w-[2px] bg-gray-800" style={{ height: "100%" }} />
+                )}
+                {/* Node dot */}
+                <div className="relative z-10 mt-1 flex-shrink-0 w-8 h-8 border border-[#C9A14A]/40 flex items-center justify-center bg-black group-hover:border-[#C9A14A] group-hover:shadow-[0_0_15px_rgba(201,161,74,0.4)] transition-all duration-300 rounded-sm">
+                  <div className="w-3 h-3 bg-[#C9A14A]/40 group-hover:bg-[#C9A14A] transition-colors duration-300 rounded-sm" />
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-gray-300 group-hover:text-white transition-colors duration-200 leading-snug mb-2">
+                    {item.label}
+                  </p>
+                  <p className="text-sm text-gray-400 font-light leading-relaxed">
+                    {item.sub}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom label */}
+          <div className="absolute bottom-10 left-0 right-0 text-center">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-[#C9A14A]/50 font-medium">
+              5 Integrated Disciplines
+            </span>
+          </div>
         </div>
       </section>
+
+      {/* ══════════════════════════════════════
+          SECTION 1 — POSITIONING
+      ══════════════════════════════════════ */}
+      <section className="border-t border-gray-800/50 bg-black/20">
+        <div className="px-8 md:px-16 pt-24 pb-16 border-b border-gray-800/50">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-px bg-[#C9A14A]" />
+                <span className="text-[10px] tracking-[0.45em] uppercase text-[#C9A14A] font-medium">
+                  Positioning
+                </span>
+              </div>
+              <h2 className="font-bold leading-tight text-white" style={{ fontSize: "clamp(2rem, 3.2vw, 3rem)" }}>
+                Strategic Product &amp; Business
+                <br />
+                <em className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A14A] to-[#D4B872] not-italic">Systems Advisory</em>
+              </h2>
+            </div>
+            <p className="text-gray-400 font-light text-sm leading-relaxed max-w-sm md:text-right">
+              I work at the intersection of five disciplines — each one essential, all of them integrated.
+            </p>
+          </div>
+        </div>
+
+        <div className="border-b border-gray-800/50">
+          {intersections.map((item, i) => (
+            <div
+              key={item.label}
+              className="group relative flex items-center px-8 md:px-16 border-b border-gray-800/50 last:border-b-0 overflow-hidden transition-colors duration-300 hover:bg-white/[0.02] cursor-default"
+            >
+              <span
+                className="absolute right-8 md:right-16 text-[8rem] md:text-[10rem] font-bold leading-none text-white/[0.02] select-none pointer-events-none transition-all duration-500 group-hover:text-white/[0.04]"
+                style={{ top: "50%", transform: "translateY(-50%)" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <div className="relative z-10 flex items-center gap-8 md:gap-16 py-8 md:py-10 w-full max-w-7xl mx-auto">
+                <span className="text-[10px] text-[#C9A14A]/50 flex-shrink-0 w-6 font-medium">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#C9A14A]/30 flex-shrink-0 group-hover:bg-[#C9A14A] transition-colors duration-300" />
+                <div className="flex-1 flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-10">
+                  <h3
+                    className="font-bold text-gray-300 group-hover:text-white transition-colors duration-200"
+                    style={{ fontSize: "clamp(1.2rem, 2vw, 1.75rem)" }}
+                  >
+                    {item.label}
+                  </h3>
+                  <p className="text-gray-500 text-sm font-light md:text-right max-w-xs group-hover:text-gray-400 transition-colors duration-200">
+                    {item.sub}
+                  </p>
+                </div>
+                <ArrowRight size={15} className="flex-shrink-0 text-transparent group-hover:text-[#C9A14A]/80 transition-colors duration-300" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="px-8 md:px-16 py-20 border-b border-gray-800/50">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="border-l-2 border-[#C9A14A] pl-8">
+              <p className="text-gray-300 leading-relaxed font-light" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)" }}>
+                My focus is not just technology — it is building the right business structures,
+                workflows, products, and scalable ecosystems that create sustainable growth.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 lg:items-end">
+              <Link to="/contact" className="group self-start lg:self-auto flex items-center gap-3 border border-[#C9A14A]/50 text-[#C9A14A] px-9 py-4 text-[11px] tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#C9A14A]/10 rounded-full">
+                Book Strategic Advisory Session
+                <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <span className="text-[10px] text-gray-500 tracking-[0.1em] uppercase lg:text-right font-medium">
+                No commitment required — start with one conversation
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          SECTION 2 — CORE EXPERTISE
+      ══════════════════════════════════════ */}
+      <section className="bg-transparent border-t border-gray-800/50">
+        <div className="px-8 md:px-16 pt-24 pb-14 border-b border-gray-800/50">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-px bg-[#C9A14A]" />
+                <span className="text-[10px] tracking-[0.45em] uppercase text-[#C9A14A] font-medium">
+                  Core Advisor Areas
+                </span>
+              </div>
+              <h2 className="font-bold leading-tight text-white" style={{ fontSize: "clamp(2rem, 3.2vw, 3rem)" }}>
+                Core Strategic
+                <em className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A14A] to-[#D4B872] not-italic"> Expertise</em>
+              </h2>
+            </div>
+            <p className="text-gray-400 font-light text-sm leading-relaxed max-w-xs">
+              Five integrated advisory domains — each one compounding into the next.
+            </p>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-8 md:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-800/50 border-b border-gray-800/50">
+            {expertise.slice(0, 2).map((item, i) => (
+              <ExpertiseCard key={item.index} item={item} i={i} active={activeCard === i} onEnter={() => setActiveCard(i)} onLeave={() => setActiveCard(null)} />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-800/50 border-b border-gray-800/50">
+            {expertise.slice(2, 4).map((item, i) => (
+              <ExpertiseCard key={item.index} item={item} i={i + 2} active={activeCard === i + 2} onEnter={() => setActiveCard(i + 2)} onLeave={() => setActiveCard(null)} />
+            ))}
+          </div>
+          <div className="border-b border-gray-800/50 bg-gray-800/50">
+            <ExpertiseCard item={expertise[4]} i={4} active={activeCard === 4} onEnter={() => setActiveCard(4)} onLeave={() => setActiveCard(null)} fullWidth />
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-[#1A150C] to-[#0D0A06] border-y border-[#C9A14A]/20 px-8 md:px-16 py-16 relative overflow-hidden">
+          <div className="absolute -inset-1/2 bg-[radial-gradient(ellipse_at_center,rgba(201,161,74,0.15)_0%,transparent_50%)] blur-2xl" />
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative z-10">
+            <div>
+              <p className="text-[10px] tracking-[0.35em] uppercase text-[#C9A14A] mb-3 font-medium">
+                Ready to build?
+              </p>
+              <h3 className="font-bold text-white leading-snug" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)" }}>
+                Let's map your business &amp; growth strategy —<br className="hidden md:block" />
+                <em className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A14A] to-[#D4B872] not-italic"> in one focused session.</em>
+              </h3>
+            </div>
+            <div className="flex flex-col gap-3 md:items-end flex-shrink-0">
+              <Link to="/contact" className="group flex items-center gap-3 bg-gradient-to-r from-[#C9A14A] to-[#D4B872] text-black px-10 py-4 text-[11px] tracking-[0.18em] uppercase transition-all duration-300 hover:shadow-[0_0_20px_rgba(201,161,74,0.4)] rounded-full font-semibold hover:-translate-y-1">
+                Book Strategic Advisory Session
+                <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <span className="text-[10px] text-gray-500 tracking-[0.1em] uppercase font-medium">
+                60 min · Strategic clarity guaranteed
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ExpertiseCard({
+  item,
+  active,
+  onEnter,
+  onLeave,
+  fullWidth = false,
+}: {
+  item: { index: string; title: string; body: string };
+  i: number;
+  active: boolean;
+  onEnter: () => void;
+  onLeave: () => void;
+  fullWidth?: boolean;
+}) {
+  return (
+    <div
+      className={`relative bg-[#0B0B0B] flex flex-col gap-7 p-10 md:p-12 cursor-default overflow-hidden transition-colors duration-300 hover:bg-white/[0.02] group ${fullWidth ? "md:flex-row md:items-start md:gap-20" : ""}`}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      <div
+        className="absolute top-0 left-0 h-[2px] bg-[#C9A14A] transition-all duration-500"
+        style={{ width: active ? "100%" : "2.5rem" }}
+      />
+
+      <div className={fullWidth ? "flex-shrink-0" : ""}>
+        <div className="flex items-center justify-between mb-8">
+          <span className="text-[10px] text-[#C9A14A]/60 font-medium">
+            {item.index}
+          </span>
+          <span className="text-7xl font-bold text-white/[0.03] leading-none select-none transition-colors duration-300 group-hover:text-white/[0.05]">
+            {item.index}
+          </span>
+        </div>
+        <h3
+          className="font-bold leading-snug transition-colors duration-200"
+          style={{
+            fontSize: fullWidth ? "clamp(1.4rem, 2vw, 1.9rem)" : "clamp(1.1rem, 1.5vw, 1.4rem)",
+            color: active ? "#C9A14A" : "#FFFFFF",
+          }}
+        >
+          {item.title}
+        </h3>
+      </div>
+
+      <div className={`flex flex-col gap-4 ${fullWidth ? "flex-1 pt-1" : ""}`}>
+        <p className="text-gray-400 leading-relaxed font-light group-hover:text-gray-300 transition-colors" style={{ fontSize: fullWidth ? "1rem" : "0.875rem" }}>
+          {item.body}
+        </p>
+        <div className="flex items-center gap-2 text-[10px] text-[#C9A14A] tracking-[0.12em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-200 font-medium mt-auto">
+          Explore this area <ArrowRight size={10} />
+        </div>
+      </div>
     </div>
   );
 }
