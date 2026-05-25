@@ -84,10 +84,10 @@ export default async function handler(req, res) {
     });
 
     const mailOptions = {
-      from: \`"Ahana Aura Website" <\${process.env.EMAIL_USER}>\`,
-      to: process.env.EMAIL_USER, 
+      from: `"Ahana Aura Website" <${process.env.EMAIL_USER}>`,
+      to: 'advisor@ahanaaura.com, ahanaaura1@gmail.com', 
       replyTo: safe.email,
-      subject: \`Strategy Call Request — \${safe.name} (\${safe.company})\`,
+      subject: `Strategy Call Request — ${safe.name} (${safe.company})`,
       html: emailHtml,
     };
 
