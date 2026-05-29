@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import ahanaImage from '../assets/Ahana.jpeg';
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { ArrowRight, Box, Target, LayoutDashboard, Globe, Zap, Code, ShieldCheck, Briefcase, ChevronRight, Activity, TrendingUp, Users, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Box, Target, LayoutDashboard, Globe, Zap, Code, ShieldCheck, Briefcase, ChevronRight, Activity, TrendingUp, Users, Sparkles, MessageSquare } from 'lucide-react';
 import { cn } from "../../utils/luxury-utils";
 
 /* Glowing Curved Section Divider */
@@ -119,12 +119,10 @@ export default function ServicesPage() {
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative h-[500px] lg:h-[650px] w-full flex items-center justify-center z-10"
           >
-            {/* Elegant glowing background waves behind portrait */}
             <HeroGoldSweeps />
 
             {/* Premium Framed Portrait */}
             <div className="relative w-full max-w-[420px] aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-[#111111]/80 backdrop-blur-md border border-[#C9A14A]/20 shadow-2xl group">
-               {/* Soft golden inner glow overlay */}
                <div className="absolute inset-0 bg-gradient-to-t from-[#C9A14A]/15 to-transparent opacity-60 group-hover:opacity-20 transition-all duration-700 z-10 pointer-events-none" />
                <motion.img 
                  style={{ y: yBg }}
@@ -132,7 +130,6 @@ export default function ServicesPage() {
                  alt="Ahana Aura" 
                  className="w-full h-[115%] object-cover object-top opacity-90 group-hover:scale-105 transition-all duration-[1.5s]" 
                />
-               {/* Elegant Frame Outline */}
                <div className="absolute inset-4 border border-[#C9A14A]/25 rounded-[1.8rem] z-20 pointer-events-none group-hover:inset-3 transition-all duration-700" />
             </div>
           </motion.div>
@@ -143,7 +140,7 @@ export default function ServicesPage() {
       <CurvedDivider />
 
       {/* ══════════════════════════════════════
-          2️⃣ POSITIONING & STRATEGY SECTION
+          2️⃣ POSITIONING SECTION
       ══════════════════════════════════════ */}
       <section className="relative w-full py-20 z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -188,7 +185,7 @@ export default function ServicesPage() {
       <CurvedDivider />
 
       {/* ══════════════════════════════════════
-          3️⃣ CORE STRATEGIC EXPERTISE (Glassmorphic Glow Grid)
+          3️⃣ CORE ADVISORY AREAS (Core Strategic Expertise Grid)
       ══════════════════════════════════════ */}
       <section className="relative w-full py-20 z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -200,7 +197,7 @@ export default function ServicesPage() {
              variants={staggerContainer}
           >
             <motion.div variants={fadeUp} className="text-center mb-24">
-              <h2 className="text-4xl md:text-6xl font-serif text-white font-light tracking-tight mb-4">Core Strategic Expertise</h2>
+              <h2 className="text-4xl md:text-6xl font-serif text-white font-light tracking-tight mb-4">Core Advisory Areas</h2>
               <span className="text-[#C9A14A] text-xs tracking-[0.35em] uppercase font-semibold">Selected Strategic Work & Solutions</span>
             </motion.div>
 
@@ -243,12 +240,10 @@ export default function ServicesPage() {
                   key={idx} 
                   className="relative group overflow-hidden rounded-2xl bg-gradient-to-b from-[#141414]/90 to-[#0A0A0A]/95 backdrop-blur-xl border border-[#C9A14A]/20 p-10 hover:border-[#E0BC74]/60 hover:-translate-y-1 transition-all duration-500 shadow-[0_15px_35px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)]"
                 >
-                  {/* Subtle internal glowing backdrop reflection */}
                   <div className="absolute inset-0 bg-gradient-to-b from-[#C9A14A]/0 via-[#C9A14A]/[0.02] to-[#C9A14A]/[0.06] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                   <div className="absolute top-[-50%] right-[-50%] w-[100%] h-[100%] rounded-full bg-[#C9A14A]/5 blur-[60px] pointer-events-none" />
 
                   <div className="flex gap-6 items-start">
-                    {/* Badge */}
                     <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[#C9A14A]/30 bg-black/60 flex items-center justify-center text-xs tracking-wider text-[#E0BC74] font-semibold font-mono shadow-[0_0_15px_rgba(201,161,74,0.15)] group-hover:border-[#E0BC74] group-hover:shadow-[0_0_20px_rgba(224,188,116,0.3)] transition-all duration-500">
                       {item.code}
                     </div>
@@ -268,7 +263,80 @@ export default function ServicesPage() {
       <CurvedDivider />
 
       {/* ══════════════════════════════════════
-          4️⃣ FROM VISION TO SCALABLE EXECUTION (Timeline steps)
+          4️⃣ REAL BUSINESS IMPACT (Case Studies with Metrics)
+      ══════════════════════════════════════ */}
+      <section className="relative w-full py-20 z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          
+          <motion.div
+             initial="hidden"
+             whileInView="show"
+             viewport={{ once: true, amount: 0.15 }}
+             variants={staggerContainer}
+          >
+            <motion.div variants={fadeUp} className="text-center mb-24">
+              <h2 className="text-4xl md:text-6xl font-serif text-white font-light tracking-tight mb-4">Real Business Impact</h2>
+              <span className="text-[#C9A14A] text-xs tracking-[0.35em] uppercase font-semibold">Selected Case Studies & Achievements</span>
+            </motion.div>
+
+            {/* Glowing Glass Cards for Impact Cases */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                {
+                  metric: "92%",
+                  label: "Lead Accuracy Improvement",
+                  title: "Real Estate Lead Intelligence System",
+                  desc: "Designed and optimized a real-estate marketing and sales workflow system that significantly improved lead targeting and conversion performance."
+                },
+                {
+                  metric: "30%",
+                  label: "Closure Growth in 1 Year",
+                  title: "B2B Demand Generation & Industry Positioning",
+                  desc: "Designed B2B marketing and demand-generation systems for IT services and product companies, including multi-location API-based reach architecture."
+                },
+                {
+                  metric: "19K+",
+                  label: "Learners Impacted",
+                  title: "Kickstart Skill-Development Platform",
+                  desc: "Created a comprehensive skill-development and employment ecosystem that successfully connected structured learning with real-world work opportunities."
+                },
+                {
+                  metric: "AI",
+                  label: "Scalable Consultation System",
+                  title: "AI Avatar & Consultation Systems",
+                  desc: "Developed intelligent AI-powered consultation systems with advanced avatar integration for advisory-driven, HR, coaching, and educational sectors."
+                }
+              ].map((item, idx) => (
+                <motion.div 
+                  variants={fadeUp} 
+                  key={idx} 
+                  className="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-[#121212]/95 to-[#080808]/98 border border-[#C9A14A]/15 p-10 hover:border-[#E0BC74]/50 transition-all duration-500 shadow-[0_20px_45px_rgba(0,0,0,0.6)] flex flex-col md:flex-row gap-8 items-center"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#C9A14A]/[0.01] to-[#C9A14A]/[0.03] pointer-events-none" />
+                  
+                  {/* Large Metric Display on the Left */}
+                  <div className="flex-shrink-0 w-full md:w-36 h-36 rounded-2xl bg-black/60 border border-[#C9A14A]/25 flex flex-col justify-center items-center text-center shadow-[inset_0_2px_10px_rgba(0,0,0,0.8)] group-hover:border-[#E0BC74] transition-colors duration-500">
+                    <div className="text-4xl md:text-5xl font-serif text-[#E0BC74] font-medium tracking-tight mb-1">{item.metric}</div>
+                    <div className="text-[9px] tracking-[0.15em] uppercase text-[#A5A5A5] px-2 leading-tight">{item.label}</div>
+                  </div>
+
+                  {/* Case Content */}
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-serif text-white font-light mb-3 leading-snug">{item.title}</h3>
+                    <p className="text-[#A5A5A5] text-sm leading-relaxed font-light">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      <CurvedDivider />
+
+      {/* ══════════════════════════════════════
+          5️⃣ WORKFLOW / HOW I WORK (Timeline Path)
       ══════════════════════════════════════ */}
       <section className="relative w-full py-20 z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -280,13 +348,12 @@ export default function ServicesPage() {
              variants={staggerContainer}
           >
             <motion.div variants={fadeUp} className="text-center mb-32">
-              <h2 className="text-4xl md:text-6xl font-serif text-white font-light tracking-tight">From Vision to Scalable Execution</h2>
+              <h2 className="text-4xl md:text-6xl font-serif text-white font-light tracking-tight mb-4">Workflow / How I Work</h2>
+              <span className="text-[#C9A14A] text-xs tracking-[0.35em] uppercase font-semibold">From Vision to Scalable Execution</span>
             </motion.div>
 
             {/* Horizontal Timeline */}
             <div className="relative">
-              
-              {/* Arrow Connecting Lines */}
               <div className="hidden lg:block absolute top-[28px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-[#C9A14A]/20 via-[#E0BC74]/40 to-[#C9A14A]/20"></div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
@@ -297,18 +364,13 @@ export default function ServicesPage() {
                   { step: "4", title: "Scale", desc: "Enable structured execution, Automation, Optimization, and growth" }
                 ].map((item, idx) => (
                   <motion.div variants={fadeUp} key={idx} className="flex flex-col items-center text-center group relative">
-                    
-                    {/* Circle Number Badge */}
                     <div className="relative z-10 w-14 h-14 rounded-full border border-[#C9A14A]/40 bg-black flex items-center justify-center text-lg font-serif text-[#E0BC74] mb-8 shadow-[0_0_20px_rgba(201,161,74,0.15)] group-hover:border-[#E0BC74] group-hover:shadow-[0_0_25px_rgba(224,188,116,0.35)] transition-all duration-500">
                       {item.step}
                     </div>
 
-                    {/* Step Card with bottom gold border glow */}
                     <div className="w-full bg-[#111111]/75 border border-white/5 rounded-2xl p-8 shadow-2xl relative overflow-hidden group-hover:border-[#C9A14A]/30 transition-all duration-500 flex-grow min-h-[180px] flex flex-col justify-center">
                       <h4 className="text-xl font-semibold text-white mb-3 tracking-wide">{item.title}</h4>
                       <p className="text-[#A5A5A5] text-sm font-light leading-relaxed">{item.desc}</p>
-                      
-                      {/* BOTTOM GLOW UNDERLINE */}
                       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C9A14A] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
                     </div>
                   </motion.div>
@@ -323,11 +385,136 @@ export default function ServicesPage() {
       <CurvedDivider />
 
       {/* ══════════════════════════════════════
-          5️⃣ LET'S BUILD SOMETHING (Rich CTA)
+          6️⃣ INDUSTRIES & ECOSYSTEMS (Elegant Scrolling Marquee)
+      ══════════════════════════════════════ */}
+      <section className="relative w-full py-20 bg-black/20 z-10 overflow-hidden border-y border-[#C9A14A]/10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center">
+          <span className="text-[#C9A14A] text-xs tracking-[0.35em] uppercase font-semibold">Industries & Ecosystems</span>
+          <h2 className="text-3xl md:text-5xl font-serif text-white font-light tracking-tight mt-4">Ecosystems Worked Across</h2>
+        </div>
+
+        <div className="flex w-full overflow-hidden relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#020202] to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#020202] to-transparent z-20 pointer-events-none" />
+
+          <motion.div 
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+            className="flex whitespace-nowrap gap-16 px-6"
+          >
+            {[...Array(2)].map((_, j) => (
+              <div key={j} className="flex gap-16">
+                {[
+                  "Startups", 
+                  "Real Estate", 
+                  "EdTech", 
+                  "Wellness", 
+                  "Enterprise SaaS", 
+                  "Renewable Energy", 
+                  "HR Platforms", 
+                  "Digital Commerce"
+                ].map((industry, i) => (
+                  <div key={i} className="flex items-center gap-6">
+                    <span className="text-4xl md:text-6xl font-serif text-transparent bg-clip-text bg-gradient-to-b from-white via-white/80 to-white/30 opacity-40 hover:opacity-100 transition-opacity duration-500 cursor-default">
+                      {industry}
+                    </span>
+                    <span className="text-[#C9A14A] text-2xl opacity-60">✦</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <CurvedDivider />
+
+      {/* ══════════════════════════════════════
+          7️⃣ LEADERSHIP THINKING (Split Layout Quotes)
+      ══════════════════════════════════════ */}
+      <section className="relative w-full py-20 z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          
+          <motion.div
+             initial="hidden"
+             whileInView="show"
+             viewport={{ once: true, amount: 0.15 }}
+             variants={staggerContainer}
+             className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center"
+          >
+            {/* Split Quote Box */}
+            <motion.div variants={fadeUp} className="lg:col-span-7">
+              <div className="flex items-center gap-4 mb-8">
+                 <span className="text-[#C9A14A] text-xs uppercase tracking-[0.3em] font-semibold">Leadership Thinking</span>
+                 <div className="w-16 h-[1px] bg-gradient-to-r from-[#C9A14A]/40 to-transparent"></div>
+              </div>
+              
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif text-[#F5F5F5] leading-[1.2] font-light">
+                “Most businesses focus <br/>only on <span className="italic text-[#E0BC74] font-medium drop-shadow-[0_0_10px_rgba(224,188,116,0.1)]">execution</span>.
+                <br /><br />
+                I focus on building the <br/>right <span className="text-[#E0BC74] font-medium">structure</span> before scaling execution.”
+              </h2>
+            </motion.div>
+
+            {/* Strategic Pillars */}
+            <motion.div variants={fadeUp} className="lg:col-span-5 pt-8 lg:pt-16">
+              <div className="border-l border-[#C9A14A]/30 pl-8 space-y-8">
+                <h3 className="text-xs tracking-[0.25em] uppercase text-[#C9A14A] font-semibold mb-6">Strategic Focus Pillars</h3>
+                <ul className="space-y-6">
+                  {[
+                    "Product viability & architecture",
+                    "Market positioning & alignment",
+                    "System scalability & flexibility",
+                    "Workflow optimization & flow",
+                    "Business sustainability models",
+                    "Operational clarity & visibility"
+                  ].map((point, i) => (
+                    <li key={i} className="text-lg text-[#D5D5D5] font-light flex items-center gap-4 group cursor-default">
+                      <span className="w-3 h-[1px] bg-[#C9A14A]/50 group-hover:w-6 group-hover:bg-[#E0BC74] transition-all duration-300"></span>
+                      <span className="group-hover:text-white transition-colors duration-300">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      <CurvedDivider />
+
+      {/* ══════════════════════════════════════
+          8️⃣ CEO POSITIONING STATEMENT (Luxury Minimal Block)
+      ══════════════════════════════════════ */}
+      <section className="relative w-full py-20 z-10 flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+          <motion.div
+             initial="hidden"
+             whileInView="show"
+             viewport={{ once: true, amount: 0.2 }}
+             variants={fadeUp}
+             className="relative overflow-hidden rounded-[3rem] bg-gradient-to-b from-[#141414] to-[#080808] border border-[#C9A14A]/25 p-12 md:p-20 text-center shadow-[0_25px_50px_rgba(0,0,0,0.8)]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#C9A14A]/[0.01] via-[#E0BC74]/[0.03] to-[#C9A14A]/[0.01] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vh] bg-[#C9A14A]/5 blur-[100px] pointer-events-none" />
+
+            <div className="relative z-10 max-w-4xl mx-auto">
+              <span className="text-[#C9A14A] text-xs tracking-[0.4em] uppercase font-semibold mb-6 block">CEO Positioning Statement</span>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-wide leading-snug font-light text-[#E0BC74] drop-shadow-[0_0_15px_rgba(224,188,116,0.1)]">
+                Strategic Advisor for Scalable Business Systems, Market-Fit Products & Growth Architectures
+              </h2>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <CurvedDivider />
+
+      {/* ══════════════════════════════════════
+          9️⃣ FINAL CTA SECTION (Rich CTA)
       ══════════════════════════════════════ */}
       <section className="relative w-full py-32 flex flex-col items-center justify-center text-center bg-gradient-to-b from-transparent to-[#070707] overflow-hidden z-10">
-        
-        {/* Deep ambient backdrop lighting */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] bg-gradient-to-r from-[#C9A14A]/5 to-[#E0BC74]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
         <motion.div 
@@ -341,7 +528,6 @@ export default function ServicesPage() {
             Let's Build <span className="text-[#E0BC74] font-medium drop-shadow-[0_0_15px_rgba(224,188,116,0.15)]">Something</span> That Actually Scales
           </motion.h2>
 
-          {/* Underline separator */}
           <motion.div variants={fadeUp} className="w-24 h-[1.5px] bg-gradient-to-r from-transparent via-[#C9A14A] to-transparent mb-12"></motion.div>
           
           <motion.p variants={fadeUp} className="text-[#B5B5B5] text-lg md:text-xl font-light mb-16 max-w-2xl leading-relaxed">
